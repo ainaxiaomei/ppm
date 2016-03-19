@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.alibaba.ppm.process.mapper.TemplateConfigBeanMapperExt" >
+<mapper namespace="com.alibaba.ppm.process.mapper.TemplateConfigBeanMapper" >
   <resultMap id="BaseResultMap" type="com.alibaba.ppm.process.entity.TemplateConfigBean" >
     <id column="TEMPLATE_ID" property="templateId" jdbcType="INTEGER" />
     <id column="CONFIG__ID" property="configId" jdbcType="INTEGER" />

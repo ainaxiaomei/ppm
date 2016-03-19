@@ -1,6 +1,9 @@
 package com.alibaba.ppm.workflow;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
+
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -11,6 +14,13 @@ import javax.servlet.annotation.WebFilter;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.springframework.core.io.support.ResourcePatternUtils;
+
+import com.alibaba.ppm.process.entity.TemplateConfigBean;
+import com.alibaba.ppm.process.mapper.TemplateConfigBeanMapperExt;
 
 
 
@@ -37,8 +47,25 @@ public class TemplateFilter implements Filter {
 		 */
 		String tempId="";
 		tempId = getTemplateIdFromRquest(request);
-		if("".equals(tempId)&&tempId!=null){
+		if("".equals(tempId)||tempId==null){
 			//没有templateId,读取配置文件获取templateId并跳转到该模板的第一个节点
+			InputStream inputStream=Resources.getResourceAsStream("com/alibaba/ppm/common/config/mybatis-config.xml");
+			SqlSession session=new SqlSessionFactoryBuilder().build(inputStream).openSession();
+			TemplateConfigBeanMapperExt tempConfigMapper=session.getMapper(TemplateConfigBeanMapperExt.class);
+			List<TemplateConfigBean> tempConfigBeanList=tempConfigMapper.selectAll();
+			if(tempConfigBeanList==null||tempConfigBeanList.size()<=0){
+				throw new ServletException("No Template Configuration Found!");
+			}
+			//此配置只应该有一条记录
+			int tempalteId=tempConfigBeanList.get(0).getTemplateId();
+			int startNode=tempConfigBeanList.get(0).getStartNode();
+			if(tempalteId<=0||startNode<=0){
+				throw new ServletException("Config Error!");
+			}
+			//查找起始节点对应的页面
+			String url="";
+			request.getRequestDispatcher(url).forward(request, response);
+			
 		}else{
 			//获取当前页面的nodeId
 			String nodeId="";
@@ -46,7 +73,7 @@ public class TemplateFilter implements Filter {
 			if("".equals(nodeId)||nodeId==null){
 				//nodeId为空有异常
 				log.debug("node id is null");
-				throw new ServletException("node id is null");
+				throw new ServletException("Template Node  Is Missing");
 			}else{
 				//调用node配置的业务处理类
 				

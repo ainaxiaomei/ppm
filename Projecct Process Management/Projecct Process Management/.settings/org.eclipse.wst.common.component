@@ -2,6 +2,9 @@
     <wb-module deploy-name="ProjecctProcessManagement">
         <wb-resource deploy-path="/" source-path="/WebRoot"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <dependent-module archiveName="mybatis.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/mybatis/mybatis">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="java-output-path" value="/ProjecctProcessManagement/WebRoot/WEB-INF/classes"/>
         <property name="context-root" value="/ProjecctProcessManagement"/>
     </wb-module>

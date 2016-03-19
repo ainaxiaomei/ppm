@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration> 
-  <properties resource="datasource.properties">
+  <properties resource="com/alibaba/ppm/common/config/datasource.properties">
   </properties>
   <environments default="development">
     <environment id="development">
@@ -17,5 +17,7 @@
     </environment>
   </environments> 
   <mappers>
+   <mapper resource="com/alibaba/ppm/process/mapper/TemplateConfigBeanMapper.xml"/>
+   <mapper resource="com/alibaba/ppm/process/mapper/TemplateConfigBeanMapperExt.xml"/>
   </mappers>
 </configuration>

@@ -3,6 +3,7 @@
 	<name>ProjecctProcessManagement</name>
 	<comment></comment>
 	<projects>
+		<project>mybatis</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

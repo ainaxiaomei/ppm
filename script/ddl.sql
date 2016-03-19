@@ -1,41 +1,49 @@
-CREATE TABLE TEMPLATE_CONFIG 
+drop table if exists TEMPLATE_CONFIG;
+
+/*==============================================================*/
+/* Table: TEMPLATE_CONFIG                                       */
+/*==============================================================*/
+create table TEMPLATE_CONFIG
 (
-   CONFIG__ID           INT  PRIMARY KEY NOT NULL AUTO_INCREMENT ,
-   TEMPLATE_ID          INT                   NOT NULL,
-   CREATOR              VARCHAR(128)                   NULL,
-   MODIFIER             VARCHAR(128)                   NULL,
-   IS_DELETED           VARCHAR(1)                        NULL,
-   EXT1                 VARCHAR(128)                   NULL,
-   EXT2                 VARCHAR(128)                   NULL,
-   EXT3                 VARCHAR(128)                   NULL,
-   EXT4                 VARCHAR(128)                   NULL,
-   EXT5                 VARCHAR(128)                   NULL
-   );
+   TEMPLATE_ID          int                            not null,
+   CONFIG__ID           int                            not null,
+   CREATOR              varchar(128)                   null,
+   MODIFIER             varchar(128)                   null,
+   IS_DELETED           varchar(1)                     null,
+   EXT1                 varchar(128)                   null,
+   EXT2                 varchar(128)                   null,
+   EXT3                 varchar(128)                   null,
+   EXT4                 varchar(128)                   null,
+   EXT5                 varchar(128)                   null,
+   START_NODE           int                            not null,
+   constraint PK_TEMPLATE_CONFIG primary key clustered (TEMPLATE_ID, CONFIG__ID)
+);
    
-DROP TABLE IF EXISTS TEMPLATE_NODE;
+drop table if exists TEMPLATE_NODE;
 
 /*==============================================================*/
 /* Table: TEMPLATE_NODE                                         */
 /*==============================================================*/
-CREATE TABLE TEMPLATE_NODE 
+create table TEMPLATE_NODE
 (
-   NODE_ID              INT                            NOT NULL AUTO_INCREMENT,
-   CREATOR              VARCHAR(128)                   NULL,
-   MODIFIER             VARCHAR(128)                   NULL,
-   IS_DELETED           VARCHAR(1)                       NULL,
-   IS_DONE              VARCHAR(1)                        NULL,
-   IS_DELAY             VARCHAR(1)                        NULL,
-   PAGR_URL             VARCHAR(128)                   NULL,
-   NODE_TYPE            VARCHAR(1)                        NULL,
-   PRE_NODE             INT                            NULL,
-   CLASS                VARCHAR(128)                   NULL,
-   METHOD               VARCHAR(128)                   NULL,
-   NEXT_NODE            INT                            NULL,
-   PARENT_NODE          INT                            NULL,
-   EXT1                 VARCHAR(128)                   NULL,
-   EXT2                 VARCHAR(128)                   NULL,
-   EXT3                 VARCHAR(128)                   NULL,
-   EXT4                 VARCHAR(128)                   NULL,
-   EXT5                 VARCHAR(128)                   NULL,
-   CONSTRAINT PK_TEMPLATE_NODE PRIMARY KEY clustered (NODE_ID)
+   TEMPLATE_ID          int                            not null,
+   NODE_ID              int                            not null,
+   CREATOR              varchar(128)                   null,
+   MODIFIER             varchar(128)                   null,
+   IS_DELETED           varchar(1)                     null,
+   IS_DONE              varchar(1)                     null,
+   IS_DELAY             varchar(1)                     null,
+   PAGR_URL             varchar(128)                   null,
+   NODE_TYPE            varchar(1)                     null,
+   PRE_NODE             int                            null,
+   CLASS                varchar(128)                   null,
+   METHOD               varchar(128)                   null,
+   NEXT_NODE            int                            null,
+   PARENT_NODE          int                            null,
+   EXT1                 varchar(128)                   null,
+   EXT2                 varchar(128)                   null,
+   EXT3                 varchar(128)                   null,
+   EXT4                 varchar(128)                   null,
+   EXT5                 varchar(128)                   null,
+   constraint PK_TEMPLATE_NODE primary key clustered (TEMPLATE_ID, NODE_ID)
 );
