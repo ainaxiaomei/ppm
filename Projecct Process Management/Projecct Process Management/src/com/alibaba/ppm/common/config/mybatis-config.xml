@@ -19,5 +19,7 @@
   <mappers>
    <mapper resource="com/alibaba/ppm/process/mapper/TemplateConfigBeanMapper.xml"/>
    <mapper resource="com/alibaba/ppm/process/mapper/TemplateConfigBeanMapperExt.xml"/>
+   <mapper resource="com/alibaba/ppm/process/mapper/TemplateNodeBeanMapper.xml"/>
+   <mapper resource="com/alibaba/ppm/process/mapper/TemplateNodeBeanMapperExt.xml"/>
   </mappers>
 </configuration>

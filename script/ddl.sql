@@ -21,6 +21,8 @@ create table TEMPLATE_CONFIG
    
 drop table if exists TEMPLATE_NODE;
 
+drop table if exists TEMPLATE_NODE;
+
 /*==============================================================*/
 /* Table: TEMPLATE_NODE                                         */
 /*==============================================================*/
@@ -36,8 +38,8 @@ create table TEMPLATE_NODE
    PAGR_URL             varchar(128)                   null,
    NODE_TYPE            varchar(1)                     null,
    PRE_NODE             int                            null,
-   CLASS                varchar(128)                   null,
-   METHOD               varchar(128)                   null,
+   CLASS_NAME           varchar(128)                   null,
+   METHOD_NAME          varchar(128)                   null,
    NEXT_NODE            int                            null,
    PARENT_NODE          int                            null,
    EXT1                 varchar(128)                   null,

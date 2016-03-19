@@ -1,9 +1,9 @@
 package com.alibaba.ppm.process.entity;
 
-public class TemplateConfigBeanKey {
+public class TemplateNodeBeanKey {
     private Integer templateId;
 
-    private Integer configId;
+    private Integer nodeId;
 
     public Integer getTemplateId() {
         return templateId;
@@ -13,11 +13,11 @@ public class TemplateConfigBeanKey {
         this.templateId = templateId;
     }
 
-    public Integer getConfigId() {
-        return configId;
+    public Integer getNodeId() {
+        return nodeId;
     }
 
-    public void setConfigId(Integer configId) {
-        this.configId = configId;
+    public void setNodeId(Integer nodeId) {
+        this.nodeId = nodeId;
     }
 }

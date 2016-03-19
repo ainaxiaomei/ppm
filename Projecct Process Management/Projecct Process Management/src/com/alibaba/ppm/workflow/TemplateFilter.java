@@ -20,7 +20,10 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.springframework.core.io.support.ResourcePatternUtils;
 
 import com.alibaba.ppm.process.entity.TemplateConfigBean;
+import com.alibaba.ppm.process.entity.TemplateNodeBean;
+import com.alibaba.ppm.process.entity.TemplateNodeBeanKey;
 import com.alibaba.ppm.process.mapper.TemplateConfigBeanMapperExt;
+import com.alibaba.ppm.process.mapper.TemplateNodeBeanMapperExt;
 
 
 
@@ -63,8 +66,15 @@ public class TemplateFilter implements Filter {
 				throw new ServletException("Config Error!");
 			}
 			//查找起始节点对应的页面
-			String url="";
+			TemplateNodeBeanMapperExt tempNodeMapper=session.getMapper(TemplateNodeBeanMapperExt.class);
+			TemplateNodeBean nodeBean=tempNodeMapper.selectByPrimaryKey(new TemplateNodeBeanKey(tempalteId,startNode) {
+			});
+			if(nodeBean==null||nodeBean.getPagrUrl()==null||"".equals(nodeBean.getPagrUrl())){
+				throw new ServletException("Config Error!");
+			}
+			String url= nodeBean.getPagrUrl();
 			request.getRequestDispatcher(url).forward(request, response);
+			
 			
 		}else{
 			//获取当前页面的nodeId
@@ -80,7 +90,6 @@ public class TemplateFilter implements Filter {
 				//调用流程控制到一个节点
 			}
 		}
-		chain.doFilter(request, response);
 	}
 
 	private String getNodeIdFromRequest(ServletRequest request) {
