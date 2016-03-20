@@ -2,6 +2,8 @@ package com.alibaba.ppm.workflow;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.List;
 
 import javax.servlet.Filter;
@@ -10,14 +12,14 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-import org.springframework.core.io.support.ResourcePatternUtils;
+import org.springframework.http.HttpRequest;
 
 import com.alibaba.ppm.process.entity.TemplateConfigBean;
 import com.alibaba.ppm.process.entity.TemplateNodeBean;
@@ -49,7 +51,10 @@ public class TemplateFilter implements Filter {
 		 * 3.业务处理流程控制
 		 */
 		String tempId="";
+		String nodeId="";
+		//获取当前页面的tempId和nodeId
 		tempId = getTemplateIdFromRquest(request);
+		nodeId = getNodeIdFromRequest(request);
 		if("".equals(tempId)||tempId==null){
 			//没有templateId,读取配置文件获取templateId并跳转到该模板的第一个节点
 			InputStream inputStream=Resources.getResourceAsStream("com/alibaba/ppm/common/config/mybatis-config.xml");
@@ -77,17 +82,58 @@ public class TemplateFilter implements Filter {
 			
 			
 		}else{
-			//获取当前页面的nodeId
-			String nodeId="";
-			nodeId = getNodeIdFromRequest(request);
 			if("".equals(nodeId)||nodeId==null){
 				//nodeId为空有异常
 				log.debug("node id is null");
 				throw new ServletException("Template Node  Is Missing");
 			}else{
 				//调用node配置的业务处理类
-				
-				//调用流程控制到一个节点
+				//获取node的业务处理类
+				InputStream inputStream=Resources.getResourceAsStream("com/alibaba/ppm/common/config/mybatis-config.xml");
+				SqlSession session=new SqlSessionFactoryBuilder().build(inputStream).openSession();
+				TemplateNodeBeanMapperExt tempNodeMapper=session.getMapper(TemplateNodeBeanMapperExt.class);
+				TemplateNodeBean nodeBean=tempNodeMapper.selectByPrimaryKey(new TemplateNodeBeanKey(Integer.valueOf(tempId),Integer.valueOf(nodeId)) {
+				});
+				if(nodeBean==null||nodeBean.getClassName()==null||"".equals(nodeBean.getClassName())){
+					throw new ServletException("Config Error!");
+				}
+				String calssName=nodeBean.getClassName();
+				String methodName=nodeBean.getMethodName();
+				try {
+					Method method=Class.forName(calssName).getMethod(methodName, HttpRequest.class,HttpServletResponse.class);
+					method.invoke(Class.forName(calssName).newInstance(), request,response);
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				catch (NoSuchMethodException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (SecurityException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IllegalAccessException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IllegalArgumentException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (InvocationTargetException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (InstantiationException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				//调用下一个节点的页面
+				int nextNodeId=nodeBean.getNextNode();
+				TemplateNodeBean nextNodeBean=tempNodeMapper.selectByPrimaryKey(new TemplateNodeBeanKey(Integer.valueOf(tempId),Integer.valueOf(nextNodeId)) {
+				});
+				if(nextNodeBean==null||nextNodeBean.getClassName()==null||"".equals(nextNodeBean.getClassName())){
+					throw new ServletException("Config Error!");
+				}
+				String url= nextNodeBean.getPagrUrl();
+				request.getRequestDispatcher(url).forward(request, response);
 			}
 		}
 	}

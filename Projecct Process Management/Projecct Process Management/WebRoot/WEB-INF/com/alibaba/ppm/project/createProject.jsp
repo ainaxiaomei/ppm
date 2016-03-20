@@ -10,7 +10,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title><fmt:message bundle="com.alibaba.ppm.common.config.Resources" key="title" var="title"></fmt:message>${title}</title>
+    <title><fmt:message  key="i18n.createProject"></fmt:message></title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">

@@ -5,6 +5,30 @@
         <dependent-module archiveName="mybatis.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/mybatis/mybatis">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="spring-core.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/spring-core/spring-core">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="spring-webmvc.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/spring-webmvc/spring-webmvc">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="spring-beans.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/spring-beans/spring-beans">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="spring-context.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/spring-context/spring-context">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="spring-context-support.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/spring-context-support/spring-context-support">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="spring-web.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/spring-web/spring-web">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="spring-aop.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/spring-aop/spring-aop">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="spring-expression.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/spring-expression/spring-expression">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="java-output-path" value="/ProjecctProcessManagement/WebRoot/WEB-INF/classes"/>
         <property name="context-root" value="/ProjecctProcessManagement"/>
     </wb-module>

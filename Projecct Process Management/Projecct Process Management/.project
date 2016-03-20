@@ -4,6 +4,14 @@
 	<comment></comment>
 	<projects>
 		<project>mybatis</project>
+		<project>spring-core</project>
+		<project>spring-webmvc</project>
+		<project>spring-beans</project>
+		<project>spring-context</project>
+		<project>spring-context-support</project>
+		<project>spring-web</project>
+		<project>spring-aop</project>
+		<project>spring-expression</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
