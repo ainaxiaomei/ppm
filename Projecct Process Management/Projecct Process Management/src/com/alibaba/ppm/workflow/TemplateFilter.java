@@ -15,6 +15,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.ibatis.io.Resources;
@@ -29,7 +30,7 @@ import com.alibaba.ppm.process.mapper.TemplateNodeBeanMapperExt;
 
 
 /**
- * 节点模板核心过滤器主要功能
+ * 节点模板核心过滤器主要功能（需要重构）
  * 1.拦截所有模板请求，一个模板提交后自动转到下一个模板
  * 2.调用表单处理类，处理表单
  */
@@ -98,41 +99,54 @@ public class TemplateFilter implements Filter {
 				}
 				String calssName=nodeBean.getClassName();
 				String methodName=nodeBean.getMethodName();
-				try {
-					Method method=Class.forName(calssName).getMethod(methodName, HttpServletRequest.class,HttpServletResponse.class);
-					method.invoke(Class.forName(calssName).newInstance(), request,response);
-				} catch (ClassNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				if(StringUtils.isNotBlank(calssName)&&StringUtils.isNotBlank(methodName)){
+					try {
+						Method method=Class.forName(calssName).getMethod(methodName, HttpServletRequest.class,HttpServletResponse.class);
+						method.invoke(Class.forName(calssName).newInstance(), request,response);
+					} catch (ClassNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					catch (NoSuchMethodException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (SecurityException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IllegalAccessException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IllegalArgumentException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (InvocationTargetException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (InstantiationException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} 
 				}
-				catch (NoSuchMethodException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (SecurityException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IllegalAccessException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IllegalArgumentException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (InvocationTargetException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (InstantiationException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				
+				if(nodeBean.getParentNode()<=0){
+					//父节点
+					//调用下一个节点的页面
+					int nextNodeId=nodeBean.getNextNode();
+					TemplateNodeBean nextNodeBean=tempNodeMapper.selectByPrimaryKey(new TemplateNodeBeanKey(Integer.valueOf(tempId),Integer.valueOf(nextNodeId)) {
+					});
+					if(nextNodeBean==null||nextNodeBean.getClassName()==null||"".equals(nextNodeBean.getClassName())){
+						throw new ServletException("Config Error!");
+					}
+					String url= nextNodeBean.getPagrUrl();
+					request.getRequestDispatcher(url).forward(request, response);
+				}else{
+					//子节点不能有下一个节点
+					int nextNodeId=nodeBean.getNextNode();
+					if(nextNodeId>0){
+						throw new ServletException("Child Node Can Not Have Next Node!");
+					}
 				}
-				//调用下一个节点的页面
-				int nextNodeId=nodeBean.getNextNode();
-				TemplateNodeBean nextNodeBean=tempNodeMapper.selectByPrimaryKey(new TemplateNodeBeanKey(Integer.valueOf(tempId),Integer.valueOf(nextNodeId)) {
-				});
-				if(nextNodeBean==null||nextNodeBean.getClassName()==null||"".equals(nextNodeBean.getClassName())){
-					throw new ServletException("Config Error!");
-				}
-				String url= nextNodeBean.getPagrUrl();
-				request.getRequestDispatcher(url).forward(request, response);
+				
 			}
 		}
 	}
