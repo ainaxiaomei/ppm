@@ -4,7 +4,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -22,11 +25,14 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+
 import com.alibaba.ppm.process.entity.TemplateConfigBean;
 import com.alibaba.ppm.process.entity.TemplateNodeBean;
 import com.alibaba.ppm.process.entity.TemplateNodeBeanKey;
 import com.alibaba.ppm.process.mapper.TemplateConfigBeanMapperExt;
 import com.alibaba.ppm.process.mapper.TemplateNodeBeanMapperExt;
+import com.alibaba.ppm.workflow.node.Key;
+import com.alibaba.ppm.workflow.node.Node;
 
 
 
@@ -39,7 +45,7 @@ public class TemplateFilter implements Filter {
 	private static final Log log = LogFactory.getLog(TemplateFilter.class);
 	private String templateIdName;
 	private String nodeIdName;
-
+    private Map<Key,Node> NodeMap=new HashMap<Key,Node>();
 	public void destroy() {
 		
 	}
@@ -177,7 +183,7 @@ public class TemplateFilter implements Filter {
 		this.templateIdName=fConfig.getInitParameter("templateIdName");
 		this.nodeIdName=fConfig.getInitParameter("nodeIdName");
 		
-		//读取配置
+		//读取模板配置
 		SqlSessionFactory sessionFactory=sessionFactory =(SqlSessionFactory) fConfig.getServletContext().getAttribute("sessionFactory");
 		SqlSession session=sessionFactory.openSession();
 		TemplateConfigBeanMapperExt tempConfigMapper=session.getMapper(TemplateConfigBeanMapperExt.class);
@@ -190,6 +196,13 @@ public class TemplateFilter implements Filter {
 		int startNode=tempConfigBeanList.get(0).getStartNode();
 		if(tempalteId<=0||startNode<=0){
 			throw new ServletException("Config Error!");
+		}
+		//读取一个templateId下的所有node
+		TemplateNodeBeanMapperExt tempNodeMapper=session.getMapper(TemplateNodeBeanMapperExt.class);
+		List<TemplateNodeBean> beanList=tempNodeMapper.getNodesByTemplateId(tempalteId);
+		Iterator<TemplateNodeBean> itr=beanList.iterator();
+		while(itr.hasNext()){
+			TemplateNodeBean nodeBean=itr.next();
 		}
 	}
 
