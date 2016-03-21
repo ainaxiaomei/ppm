@@ -3,7 +3,6 @@
 	<name>ProjecctProcessManagement</name>
 	<comment></comment>
 	<projects>
-		<project>mybatis</project>
 		<project>spring-core</project>
 		<project>spring-webmvc</project>
 		<project>spring-beans</project>
@@ -12,6 +11,8 @@
 		<project>spring-web</project>
 		<project>spring-aop</project>
 		<project>spring-expression</project>
+		<project>spring-aspects</project>
+		<project>mybatis</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

@@ -12,6 +12,7 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
@@ -19,8 +20,6 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-import org.springframework.http.HttpRequest;
-
 import com.alibaba.ppm.process.entity.TemplateConfigBean;
 import com.alibaba.ppm.process.entity.TemplateNodeBean;
 import com.alibaba.ppm.process.entity.TemplateNodeBeanKey;
@@ -100,7 +99,7 @@ public class TemplateFilter implements Filter {
 				String calssName=nodeBean.getClassName();
 				String methodName=nodeBean.getMethodName();
 				try {
-					Method method=Class.forName(calssName).getMethod(methodName, HttpRequest.class,HttpServletResponse.class);
+					Method method=Class.forName(calssName).getMethod(methodName, HttpServletRequest.class,HttpServletResponse.class);
 					method.invoke(Class.forName(calssName).newInstance(), request,response);
 				} catch (ClassNotFoundException e) {
 					// TODO Auto-generated catch block

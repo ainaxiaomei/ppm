@@ -2,9 +2,6 @@
     <wb-module deploy-name="ProjecctProcessManagement">
         <wb-resource deploy-path="/" source-path="/WebRoot"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
-        <dependent-module archiveName="mybatis.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/mybatis/mybatis">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
         <dependent-module archiveName="spring-core.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/spring-core/spring-core">
             <dependency-type>uses</dependency-type>
         </dependent-module>
@@ -27,6 +24,12 @@
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <dependent-module archiveName="spring-expression.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/spring-expression/spring-expression">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="spring-aspects.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/spring-aspects/spring-aspects">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="mybatis.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/mybatis/mybatis">
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <property name="java-output-path" value="/ProjecctProcessManagement/WebRoot/WEB-INF/classes"/>
