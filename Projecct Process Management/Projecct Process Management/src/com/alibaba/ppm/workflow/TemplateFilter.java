@@ -6,6 +6,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -45,7 +46,7 @@ public class TemplateFilter implements Filter {
 	private static final Log log = LogFactory.getLog(TemplateFilter.class);
 	private String templateIdName;
 	private String nodeIdName;
-    private Map<Key,Node> NodeMap=new HashMap<Key,Node>();
+    private final Map<Key,Node> NodeMap=new LinkedHashMap<Key,Node>();
 	public void destroy() {
 		
 	}
