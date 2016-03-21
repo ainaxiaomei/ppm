@@ -20,6 +20,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import com.alibaba.ppm.process.entity.TemplateConfigBean;
 import com.alibaba.ppm.process.entity.TemplateNodeBean;
@@ -175,6 +176,21 @@ public class TemplateFilter implements Filter {
 		//获取配置参数，即templateId和nodeId的名称
 		this.templateIdName=fConfig.getInitParameter("templateIdName");
 		this.nodeIdName=fConfig.getInitParameter("nodeIdName");
+		
+		//读取配置
+		SqlSessionFactory sessionFactory=sessionFactory =(SqlSessionFactory) fConfig.getServletContext().getAttribute("sessionFactory");
+		SqlSession session=sessionFactory.openSession();
+		TemplateConfigBeanMapperExt tempConfigMapper=session.getMapper(TemplateConfigBeanMapperExt.class);
+		List<TemplateConfigBean> tempConfigBeanList=tempConfigMapper.selectAll();
+		if(tempConfigBeanList==null||tempConfigBeanList.size()<=0){
+			throw new ServletException("No Template Configuration Found!");
+		}
+		//此配置只应该有一条记录
+		int tempalteId=tempConfigBeanList.get(0).getTemplateId();
+		int startNode=tempConfigBeanList.get(0).getStartNode();
+		if(tempalteId<=0||startNode<=0){
+			throw new ServletException("Config Error!");
+		}
 	}
 
 }
