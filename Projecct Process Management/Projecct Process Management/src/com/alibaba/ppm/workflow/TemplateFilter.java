@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -32,8 +33,10 @@ import com.alibaba.ppm.process.entity.TemplateNodeBean;
 import com.alibaba.ppm.process.entity.TemplateNodeBeanKey;
 import com.alibaba.ppm.process.mapper.TemplateConfigBeanMapperExt;
 import com.alibaba.ppm.process.mapper.TemplateNodeBeanMapperExt;
+import com.alibaba.ppm.workflow.node.ChildNode;
 import com.alibaba.ppm.workflow.node.Key;
 import com.alibaba.ppm.workflow.node.Node;
+import com.alibaba.ppm.workflow.node.ParentNode;
 
 
 
@@ -46,7 +49,7 @@ public class TemplateFilter implements Filter {
 	private static final Log log = LogFactory.getLog(TemplateFilter.class);
 	private String templateIdName;
 	private String nodeIdName;
-    private final Map<Key,Node> NodeMap=new LinkedHashMap<Key,Node>();
+    private final Map<Key,Node> NodeMap=new HashMap<Key,Node>();
 	public void destroy() {
 		
 	}
@@ -201,10 +204,21 @@ public class TemplateFilter implements Filter {
 		//读取一个templateId下的所有node
 		TemplateNodeBeanMapperExt tempNodeMapper=session.getMapper(TemplateNodeBeanMapperExt.class);
 		List<TemplateNodeBean> beanList=tempNodeMapper.getNodesByTemplateId(tempalteId);
+		Map<Integer,ParentNode> parentMap =new HashMap<Integer,ParentNode>();
 		Iterator<TemplateNodeBean> itr=beanList.iterator();
 		while(itr.hasNext()){
 			TemplateNodeBean nodeBean=itr.next();
-			nodeBean.getp
+			if(nodeBean.getParentNode()<=0){
+				//父节点
+				parentMap.put(nodeBean.getNodeId(), new ParentNode(nodeBean.getClassName(), nodeBean.getMethodName(), nodeBean.getPagrUrl()));
+				itr.remove();
+			}else{
+				//子节点
+				
+			}
+		}
+		for(TemplateNodeBean nodeBean:beanList){
+			parentMap.get(nodeBean.getPreNode()).addChild(new ChildNode(nodeBean.getClassName(), nodeBean.getMethodName(), nodeBean.getPagrUrl()));
 		}
 	}
 

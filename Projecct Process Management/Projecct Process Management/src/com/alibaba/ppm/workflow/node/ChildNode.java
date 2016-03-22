@@ -3,32 +3,31 @@ package com.alibaba.ppm.workflow.node;
 import java.lang.reflect.Method;
 
 public class ChildNode implements Node {
-	private Class<?> businessClass;
-	private Method method;
+	private String businessClass;
+	private String method;
 	private String pageUrl;
 	private Node parent;
     
-	public ChildNode(Class<?> businessClass, Method method, String pageUrl, Node parent) {
+	public ChildNode(String businessClass, String method, String pageUrl) {
 		super();
 		this.businessClass = businessClass;
 		this.method = method;
 		this.pageUrl = pageUrl;
-		this.parent = parent;
 	}
 
-	public Class<?> getBusinessClass() {
+	public String getBusinessClass() {
 		return businessClass;
 	}
 
-	public void setBusinessClass(Class<?> businessClass) {
+	public void setBusinessClass(String businessClass) {
 		this.businessClass = businessClass;
 	}
 
-	public Method getMethod() {
+	public String getMethod() {
 		return method;
 	}
 
-	public void setMethod(Method method) {
+	public void setMethod(String method) {
 		this.method = method;
 	}
 	public void setPageUrl(String pageUrl) {

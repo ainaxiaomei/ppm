@@ -1,25 +1,22 @@
 package com.alibaba.ppm.workflow.node;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ParentNode implements Node {
-    private Node nextNode;
-    private List<Node> childNodes;
-    private Class<?> businessClass;
-    private Method method;
+    private Node nextNode=null;
+    private List<Node> childNodes =new ArrayList<Node>();
+    private String businessClass;
+    private String method;
     private String pageUrl;
-    private Node preNode;
+    private Node preNode=null;
 
-	public ParentNode(Node nextNode, List<Node> childNodes, Class<?> businessClass, Method method, String pageUrl,
-			Node preNode) {
+	public ParentNode( String businessClass, String method, String pageUrl) {
 		super();
-		this.nextNode = nextNode;
-		this.childNodes = childNodes;
 		this.businessClass = businessClass;
 		this.method = method;
 		this.pageUrl = pageUrl;
-		this.preNode = preNode;
 	}
 	
 	public Node getPreNode() {
@@ -34,8 +31,9 @@ public class ParentNode implements Node {
 		return nextNode;
 	}
 
-	public void setNextNode(Node nextNode) {
+	public void setNextNode(ParentNode nextNode) {
 		this.nextNode = nextNode;
+		nextNode.setPreNode(this);
 	}
 
 	public List<Node> getChildNodes() {
@@ -46,19 +44,19 @@ public class ParentNode implements Node {
 		this.childNodes = childNodes;
 	}
 
-	public Class<?> getBusinessClass() {
+	public String getBusinessClass() {
 		return businessClass;
 	}
 
-	public void setBusinessClass(Class<?> businessClass) {
+	public void setBusinessClass(String businessClass) {
 		this.businessClass = businessClass;
 	}
 
-	public Method getMethod() {
+	public String getMethod() {
 		return method;
 	}
 
-	public void setMethod(Method method) {
+	public void setMethod(String method) {
 		this.method = method;
 	}
 
@@ -77,8 +75,9 @@ public class ParentNode implements Node {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-    public void addChild(Node childNode){
+    public void addChild(ChildNode childNode){
     	this.childNodes.add(childNode);
+    	childNode.setParent(this);
     }
 	
 }
