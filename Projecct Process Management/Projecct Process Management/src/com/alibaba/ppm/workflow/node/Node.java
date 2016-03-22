@@ -1,7 +1,9 @@
 package com.alibaba.ppm.workflow.node;
 
 public interface Node {
-	public String getpageUrl();
+	public String getPageUrl();
 	public boolean isParent();
-	public int isDone();
+	public boolean isDone();
+	public String getClassName();
+	public String getMethodName();
 	}

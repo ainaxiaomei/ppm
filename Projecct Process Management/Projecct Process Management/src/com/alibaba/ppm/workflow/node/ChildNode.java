@@ -4,14 +4,15 @@ import java.lang.reflect.Method;
 
 public class ChildNode implements Node {
 	private String businessClass;
-	private String method;
+	private String methodName;
 	private String pageUrl;
 	private Node parent;
+	private boolean Done=false;
     
 	public ChildNode(String businessClass, String method, String pageUrl) {
 		super();
 		this.businessClass = businessClass;
-		this.method = method;
+		this.methodName = method;
 		this.pageUrl = pageUrl;
 	}
 
@@ -19,31 +20,20 @@ public class ChildNode implements Node {
 		return businessClass;
 	}
 
-	public void setBusinessClass(String businessClass) {
-		this.businessClass = businessClass;
-	}
-
-	public String getMethod() {
-		return method;
-	}
-
 	public void setMethod(String method) {
-		this.method = method;
+		this.methodName = method;
 	}
 	public void setPageUrl(String pageUrl) {
 		this.pageUrl = pageUrl;
 	}
 
-	public Node getParent() {
-		return parent;
-	}
 
 	public void setParent(Node parent) {
 		this.parent = parent;
 	}
 
 	@Override
-	public String getpageUrl() {
+	public String getPageUrl() {
 		return this.pageUrl;
 	}
 
@@ -53,9 +43,23 @@ public class ChildNode implements Node {
 	}
 
 	@Override
-	public int isDone() {
+	public boolean isDone() {
+		return Done;
+	}
+
+	public void setDone(boolean done) {
+		Done = done;
+	}
+
+	@Override
+	public String getClassName() {
+		return this.businessClass;
+	}
+
+	@Override
+	public String getMethodName() {
 		// TODO Auto-generated method stub
-		return 0;
+		return this.methodName;
 	}
 
 

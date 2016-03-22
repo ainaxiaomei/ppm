@@ -1,10 +1,10 @@
 package com.alibaba.ppm.workflow.node;
 
 public class NodeKey implements Key {
-	private int nodeId;
-    private int tempId;
+	private String nodeId;
+    private String tempId;
     
-	public NodeKey(int nodeId, int tempId) {
+	public NodeKey(String nodeId, String tempId) {
 		super();
 		this.nodeId = nodeId;
 		this.tempId = tempId;

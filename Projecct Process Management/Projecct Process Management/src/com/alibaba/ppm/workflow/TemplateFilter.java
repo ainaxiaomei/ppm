@@ -10,6 +10,7 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -36,6 +37,7 @@ import com.alibaba.ppm.process.mapper.TemplateNodeBeanMapperExt;
 import com.alibaba.ppm.workflow.node.ChildNode;
 import com.alibaba.ppm.workflow.node.Key;
 import com.alibaba.ppm.workflow.node.Node;
+import com.alibaba.ppm.workflow.node.NodeKey;
 import com.alibaba.ppm.workflow.node.ParentNode;
 
 
@@ -100,20 +102,13 @@ public class TemplateFilter implements Filter {
 			}else{
 				//调用node配置的业务处理类
 				//获取node的业务处理类
-				InputStream inputStream=Resources.getResourceAsStream("com/alibaba/ppm/common/config/mybatis-config.xml");
-				SqlSession session=new SqlSessionFactoryBuilder().build(inputStream).openSession();
-				TemplateNodeBeanMapperExt tempNodeMapper=session.getMapper(TemplateNodeBeanMapperExt.class);
-				TemplateNodeBean nodeBean=tempNodeMapper.selectByPrimaryKey(new TemplateNodeBeanKey(Integer.valueOf(tempId),Integer.valueOf(nodeId)) {
-				});
-				if(nodeBean==null||nodeBean.getClassName()==null||"".equals(nodeBean.getClassName())){
-					throw new ServletException("Config Error!");
-				}
-				String calssName=nodeBean.getClassName();
-				String methodName=nodeBean.getMethodName();
-				if(StringUtils.isNotBlank(calssName)&&StringUtils.isNotBlank(methodName)){
+				Node node=NodeMap.get(new NodeKey(tempId,nodeId));
+				String className=node.getClassName();
+				String methodName=node.getMethodName();
+				if(StringUtils.isNotBlank(className)&&StringUtils.isNotBlank(methodName)){
 					try {
-						Method method=Class.forName(calssName).getMethod(methodName, HttpServletRequest.class,HttpServletResponse.class);
-						method.invoke(Class.forName(calssName).newInstance(), request,response);
+						Method method=Class.forName(className).getMethod(methodName, HttpServletRequest.class,HttpServletResponse.class);
+						method.invoke(Class.forName(className).newInstance(), request,response);
 					} catch (ClassNotFoundException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -139,23 +134,20 @@ public class TemplateFilter implements Filter {
 					} 
 				}
 				
-				if(nodeBean.getParentNode()<=0){
+				if(node.isParent()){
 					//父节点
-					//调用下一个节点的页面
-					int nextNodeId=nodeBean.getNextNode();
-					TemplateNodeBean nextNodeBean=tempNodeMapper.selectByPrimaryKey(new TemplateNodeBeanKey(Integer.valueOf(tempId),Integer.valueOf(nextNodeId)) {
-					});
-					if(nextNodeBean==null||nextNodeBean.getClassName()==null||"".equals(nextNodeBean.getClassName())){
+				    //是否所有的子节点都已经完成
+					//调用下一个父节点的页面
+					ParentNode nextNode=(ParentNode) ((ParentNode) node).getNextNode();
+					if(nextNode==null){
 						throw new ServletException("Config Error!");
 					}
-					String url= nextNodeBean.getPagrUrl();
+					String url= nextNode.getPageUrl();
 					request.getRequestDispatcher(url).forward(request, response);
 				}else{
-					//子节点不能有下一个节点
-					int nextNodeId=nodeBean.getNextNode();
-					if(nextNodeId>0){
-						throw new ServletException("Child Node Can Not Have Next Node!");
-					}
+					//子节点
+					((ChildNode)node).setDone(true);
+					chain.doFilter(request, response);
 				}
 				
 			}
@@ -218,8 +210,16 @@ public class TemplateFilter implements Filter {
 			}
 		}
 		for(TemplateNodeBean nodeBean:beanList){
-			parentMap.get(nodeBean.getPreNode()).addChild(new ChildNode(nodeBean.getClassName(), nodeBean.getMethodName(), nodeBean.getPagrUrl()));
+			ChildNode cNode=new ChildNode(nodeBean.getClassName(), nodeBean.getMethodName(), nodeBean.getPagrUrl());
+			NodeMap.put(new NodeKey(String.valueOf(tempalteId),String.valueOf(nodeBean.getNodeId())),cNode);
+			parentMap.get(nodeBean.getPreNode()).addChild(cNode);
 		}
+		//缓存静态配置
+		Set<Integer> set=parentMap.keySet();
+		for (int nodeId:set){
+			NodeMap.put(new NodeKey(String.valueOf(tempalteId),String.valueOf(nodeId)), parentMap.get(nodeId));
+		}
+		
 	}
 
 }
