@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.alibaba.ppm.process.mapper.ProjectBeanMapper" >
+  <resultMap id="BaseResultMap" type="com.alibaba.ppm.process.entity.ProjectBean" >
+    <id column="PROJECT_ID" property="projectId" jdbcType="INTEGER" />
+    <result column="TEMPLATE_ID" property="templateId" jdbcType="VARCHAR" />
+    <result column="QA" property="qa" jdbcType="VARCHAR" />
+    <result column="PROJECT_TYPE" property="projectType" jdbcType="VARCHAR" />
+    <result column="PD" property="pd" jdbcType="VARCHAR" />
+    <result column="WORK_TARGET" property="workTarget" jdbcType="VARCHAR" />
+    <result column="PRODUCT_LINE" property="productLine" jdbcType="VARCHAR" />
+    <result column="TECHNICAL_MANAGER" property="technicalManager" jdbcType="VARCHAR" />
+    <result column="PROJECT_MANAGER" property="projectManager" jdbcType="VARCHAR" />
+    <result column="WORK_LOAD" property="workLoad" jdbcType="INTEGER" />
+    <result column="RELATED_SYSTEM" property="relatedSystem" jdbcType="VARCHAR" />
+    <result column="DOC_URL" property="docUrl" jdbcType="VARCHAR" />
+    <result column="AONE" property="aone" jdbcType="VARCHAR" />
+    <result column="FRD" property="frd" jdbcType="VARCHAR" />
+    <result column="PROJECT_NAME" property="projectName" jdbcType="VARCHAR" />
+    <result column="CREATOR" property="creator" jdbcType="VARCHAR" />
+    <result column="MODIFIER" property="modifier" jdbcType="VARCHAR" />
+    <result column="IS_DELETED" property="isDeleted" jdbcType="VARCHAR" />
+    <result column="EXT1" property="ext1" jdbcType="VARCHAR" />
+    <result column="EXT2" property="ext2" jdbcType="VARCHAR" />
+    <result column="EXT3" property="ext3" jdbcType="VARCHAR" />
+    <result column="EXT4" property="ext4" jdbcType="VARCHAR" />
+    <result column="EXT5" property="ext5" jdbcType="VARCHAR" />
+    <result column="KICKOFF_TIME" property="kickoffTime" jdbcType="DATE" />
+    <result column="PUBLICATION_DATE" property="publicationDate" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    PROJECT_ID, TEMPLATE_ID, QA, PROJECT_TYPE, PD, WORK_TARGET, PRODUCT_LINE, TECHNICAL_MANAGER, 
+    PROJECT_MANAGER, WORK_LOAD, RELATED_SYSTEM, DOC_URL, AONE, FRD, PROJECT_NAME, CREATOR, 
+    MODIFIER, IS_DELETED, EXT1, EXT2, EXT3, EXT4, EXT5, KICKOFF_TIME, PUBLICATION_DATE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from PROJECT
+    where PROJECT_ID = #{projectId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from PROJECT
+    where PROJECT_ID = #{projectId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.alibaba.ppm.process.entity.ProjectBean" >
+    insert into PROJECT (PROJECT_ID, TEMPLATE_ID, QA, 
+      PROJECT_TYPE, PD, WORK_TARGET, 
+      PRODUCT_LINE, TECHNICAL_MANAGER, PROJECT_MANAGER, 
+      WORK_LOAD, RELATED_SYSTEM, DOC_URL, 
+      AONE, FRD, PROJECT_NAME, 
+      CREATOR, MODIFIER, IS_DELETED, 
+      EXT1, EXT2, EXT3, EXT4, 
+      EXT5, KICKOFF_TIME, PUBLICATION_DATE
+      )
+    values (#{projectId,jdbcType=INTEGER}, #{templateId,jdbcType=VARCHAR}, #{qa,jdbcType=VARCHAR}, 
+      #{projectType,jdbcType=VARCHAR}, #{pd,jdbcType=VARCHAR}, #{workTarget,jdbcType=VARCHAR}, 
+      #{productLine,jdbcType=VARCHAR}, #{technicalManager,jdbcType=VARCHAR}, #{projectManager,jdbcType=VARCHAR}, 
+      #{workLoad,jdbcType=INTEGER}, #{relatedSystem,jdbcType=VARCHAR}, #{docUrl,jdbcType=VARCHAR}, 
+      #{aone,jdbcType=VARCHAR}, #{frd,jdbcType=VARCHAR}, #{projectName,jdbcType=VARCHAR}, 
+      #{creator,jdbcType=VARCHAR}, #{modifier,jdbcType=VARCHAR}, #{isDeleted,jdbcType=VARCHAR}, 
+      #{ext1,jdbcType=VARCHAR}, #{ext2,jdbcType=VARCHAR}, #{ext3,jdbcType=VARCHAR}, #{ext4,jdbcType=VARCHAR}, 
+      #{ext5,jdbcType=VARCHAR}, #{kickoffTime,jdbcType=DATE}, #{publicationDate,jdbcType=DATE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.alibaba.ppm.process.entity.ProjectBean" >
+    insert into PROJECT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="projectId != null" >
+        PROJECT_ID,
+      </if>
+      <if test="templateId != null" >
+        TEMPLATE_ID,
+      </if>
+      <if test="qa != null" >
+        QA,
+      </if>
+      <if test="projectType != null" >
+        PROJECT_TYPE,
+      </if>
+      <if test="pd != null" >
+        PD,
+      </if>
+      <if test="workTarget != null" >
+        WORK_TARGET,
+      </if>
+      <if test="productLine != null" >
+        PRODUCT_LINE,
+      </if>
+      <if test="technicalManager != null" >
+        TECHNICAL_MANAGER,
+      </if>
+      <if test="projectManager != null" >
+        PROJECT_MANAGER,
+      </if>
+      <if test="workLoad != null" >
+        WORK_LOAD,
+      </if>
+      <if test="relatedSystem != null" >
+        RELATED_SYSTEM,
+      </if>
+      <if test="docUrl != null" >
+        DOC_URL,
+      </if>
+      <if test="aone != null" >
+        AONE,
+      </if>
+      <if test="frd != null" >
+        FRD,
+      </if>
+      <if test="projectName != null" >
+        PROJECT_NAME,
+      </if>
+      <if test="creator != null" >
+        CREATOR,
+      </if>
+      <if test="modifier != null" >
+        MODIFIER,
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED,
+      </if>
+      <if test="ext1 != null" >
+        EXT1,
+      </if>
+      <if test="ext2 != null" >
+        EXT2,
+      </if>
+      <if test="ext3 != null" >
+        EXT3,
+      </if>
+      <if test="ext4 != null" >
+        EXT4,
+      </if>
+      <if test="ext5 != null" >
+        EXT5,
+      </if>
+      <if test="kickoffTime != null" >
+        KICKOFF_TIME,
+      </if>
+      <if test="publicationDate != null" >
+        PUBLICATION_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="projectId != null" >
+        #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="templateId != null" >
+        #{templateId,jdbcType=VARCHAR},
+      </if>
+      <if test="qa != null" >
+        #{qa,jdbcType=VARCHAR},
+      </if>
+      <if test="projectType != null" >
+        #{projectType,jdbcType=VARCHAR},
+      </if>
+      <if test="pd != null" >
+        #{pd,jdbcType=VARCHAR},
+      </if>
+      <if test="workTarget != null" >
+        #{workTarget,jdbcType=VARCHAR},
+      </if>
+      <if test="productLine != null" >
+        #{productLine,jdbcType=VARCHAR},
+      </if>
+      <if test="technicalManager != null" >
+        #{technicalManager,jdbcType=VARCHAR},
+      </if>
+      <if test="projectManager != null" >
+        #{projectManager,jdbcType=VARCHAR},
+      </if>
+      <if test="workLoad != null" >
+        #{workLoad,jdbcType=INTEGER},
+      </if>
+      <if test="relatedSystem != null" >
+        #{relatedSystem,jdbcType=VARCHAR},
+      </if>
+      <if test="docUrl != null" >
+        #{docUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="aone != null" >
+        #{aone,jdbcType=VARCHAR},
+      </if>
+      <if test="frd != null" >
+        #{frd,jdbcType=VARCHAR},
+      </if>
+      <if test="projectName != null" >
+        #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="modifier != null" >
+        #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=VARCHAR},
+      </if>
+      <if test="ext1 != null" >
+        #{ext1,jdbcType=VARCHAR},
+      </if>
+      <if test="ext2 != null" >
+        #{ext2,jdbcType=VARCHAR},
+      </if>
+      <if test="ext3 != null" >
+        #{ext3,jdbcType=VARCHAR},
+      </if>
+      <if test="ext4 != null" >
+        #{ext4,jdbcType=VARCHAR},
+      </if>
+      <if test="ext5 != null" >
+        #{ext5,jdbcType=VARCHAR},
+      </if>
+      <if test="kickoffTime != null" >
+        #{kickoffTime,jdbcType=DATE},
+      </if>
+      <if test="publicationDate != null" >
+        #{publicationDate,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.alibaba.ppm.process.entity.ProjectBean" >
+    update PROJECT
+    <set >
+      <if test="templateId != null" >
+        TEMPLATE_ID = #{templateId,jdbcType=VARCHAR},
+      </if>
+      <if test="qa != null" >
+        QA = #{qa,jdbcType=VARCHAR},
+      </if>
+      <if test="projectType != null" >
+        PROJECT_TYPE = #{projectType,jdbcType=VARCHAR},
+      </if>
+      <if test="pd != null" >
+        PD = #{pd,jdbcType=VARCHAR},
+      </if>
+      <if test="workTarget != null" >
+        WORK_TARGET = #{workTarget,jdbcType=VARCHAR},
+      </if>
+      <if test="productLine != null" >
+        PRODUCT_LINE = #{productLine,jdbcType=VARCHAR},
+      </if>
+      <if test="technicalManager != null" >
+        TECHNICAL_MANAGER = #{technicalManager,jdbcType=VARCHAR},
+      </if>
+      <if test="projectManager != null" >
+        PROJECT_MANAGER = #{projectManager,jdbcType=VARCHAR},
+      </if>
+      <if test="workLoad != null" >
+        WORK_LOAD = #{workLoad,jdbcType=INTEGER},
+      </if>
+      <if test="relatedSystem != null" >
+        RELATED_SYSTEM = #{relatedSystem,jdbcType=VARCHAR},
+      </if>
+      <if test="docUrl != null" >
+        DOC_URL = #{docUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="aone != null" >
+        AONE = #{aone,jdbcType=VARCHAR},
+      </if>
+      <if test="frd != null" >
+        FRD = #{frd,jdbcType=VARCHAR},
+      </if>
+      <if test="projectName != null" >
+        PROJECT_NAME = #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        CREATOR = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="modifier != null" >
+        MODIFIER = #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED = #{isDeleted,jdbcType=VARCHAR},
+      </if>
+      <if test="ext1 != null" >
+        EXT1 = #{ext1,jdbcType=VARCHAR},
+      </if>
+      <if test="ext2 != null" >
+        EXT2 = #{ext2,jdbcType=VARCHAR},
+      </if>
+      <if test="ext3 != null" >
+        EXT3 = #{ext3,jdbcType=VARCHAR},
+      </if>
+      <if test="ext4 != null" >
+        EXT4 = #{ext4,jdbcType=VARCHAR},
+      </if>
+      <if test="ext5 != null" >
+        EXT5 = #{ext5,jdbcType=VARCHAR},
+      </if>
+      <if test="kickoffTime != null" >
+        KICKOFF_TIME = #{kickoffTime,jdbcType=DATE},
+      </if>
+      <if test="publicationDate != null" >
+        PUBLICATION_DATE = #{publicationDate,jdbcType=DATE},
+      </if>
+    </set>
+    where PROJECT_ID = #{projectId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.alibaba.ppm.process.entity.ProjectBean" >
+    update PROJECT
+    set TEMPLATE_ID = #{templateId,jdbcType=VARCHAR},
+      QA = #{qa,jdbcType=VARCHAR},
+      PROJECT_TYPE = #{projectType,jdbcType=VARCHAR},
+      PD = #{pd,jdbcType=VARCHAR},
+      WORK_TARGET = #{workTarget,jdbcType=VARCHAR},
+      PRODUCT_LINE = #{productLine,jdbcType=VARCHAR},
+      TECHNICAL_MANAGER = #{technicalManager,jdbcType=VARCHAR},
+      PROJECT_MANAGER = #{projectManager,jdbcType=VARCHAR},
+      WORK_LOAD = #{workLoad,jdbcType=INTEGER},
+      RELATED_SYSTEM = #{relatedSystem,jdbcType=VARCHAR},
+      DOC_URL = #{docUrl,jdbcType=VARCHAR},
+      AONE = #{aone,jdbcType=VARCHAR},
+      FRD = #{frd,jdbcType=VARCHAR},
+      PROJECT_NAME = #{projectName,jdbcType=VARCHAR},
+      CREATOR = #{creator,jdbcType=VARCHAR},
+      MODIFIER = #{modifier,jdbcType=VARCHAR},
+      IS_DELETED = #{isDeleted,jdbcType=VARCHAR},
+      EXT1 = #{ext1,jdbcType=VARCHAR},
+      EXT2 = #{ext2,jdbcType=VARCHAR},
+      EXT3 = #{ext3,jdbcType=VARCHAR},
+      EXT4 = #{ext4,jdbcType=VARCHAR},
+      EXT5 = #{ext5,jdbcType=VARCHAR},
+      KICKOFF_TIME = #{kickoffTime,jdbcType=DATE},
+      PUBLICATION_DATE = #{publicationDate,jdbcType=DATE}
+    where PROJECT_ID = #{projectId,jdbcType=INTEGER}
+  </update>
+</mapper>

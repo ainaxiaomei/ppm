@@ -1,17 +1,56 @@
 package com.alibaba.ppm.workflow.node;
 
+import java.lang.reflect.Method;
+
 public class ChildNode implements Node {
+	private Class<?> businessClass;
+	private Method method;
+	private String pageUrl;
+	private Node parent;
     
-	@Override
-	public String getpageUrl() {
-		// TODO Auto-generated method stub
-		return null;
+	public ChildNode(Class<?> businessClass, Method method, String pageUrl, Node parent) {
+		super();
+		this.businessClass = businessClass;
+		this.method = method;
+		this.pageUrl = pageUrl;
+		this.parent = parent;
+	}
+
+	public Class<?> getBusinessClass() {
+		return businessClass;
+	}
+
+	public void setBusinessClass(Class<?> businessClass) {
+		this.businessClass = businessClass;
+	}
+
+	public Method getMethod() {
+		return method;
+	}
+
+	public void setMethod(Method method) {
+		this.method = method;
+	}
+	public void setPageUrl(String pageUrl) {
+		this.pageUrl = pageUrl;
+	}
+
+	public Node getParent() {
+		return parent;
+	}
+
+	public void setParent(Node parent) {
+		this.parent = parent;
 	}
 
 	@Override
-	public int isParent() {
-		// TODO Auto-generated method stub
-		return 0;
+	public String getpageUrl() {
+		return this.pageUrl;
+	}
+
+	@Override
+	public boolean isParent() {
+		return false;
 	}
 
 	@Override
@@ -20,10 +59,6 @@ public class ChildNode implements Node {
 		return 0;
 	}
 
-	@Override
-	public int isDelay() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+
 
 }

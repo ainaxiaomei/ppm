@@ -21,5 +21,7 @@
    <mapper resource="com/alibaba/ppm/process/mapper/TemplateConfigBeanMapperExt.xml"/>
    <mapper resource="com/alibaba/ppm/process/mapper/TemplateNodeBeanMapper.xml"/>
    <mapper resource="com/alibaba/ppm/process/mapper/TemplateNodeBeanMapperExt.xml"/>
+   <mapper resource="com/alibaba/ppm/process/mapper/ProjectBeanMapperExt"/>
+   <mapper resource="com/alibaba/ppm/process/mapper/ProjectBeanMapper"/>
   </mappers>
 </configuration>

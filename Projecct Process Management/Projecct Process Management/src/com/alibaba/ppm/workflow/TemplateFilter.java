@@ -204,6 +204,7 @@ public class TemplateFilter implements Filter {
 		Iterator<TemplateNodeBean> itr=beanList.iterator();
 		while(itr.hasNext()){
 			TemplateNodeBean nodeBean=itr.next();
+			nodeBean.getp
 		}
 	}
 

@@ -49,3 +49,57 @@ create table TEMPLATE_NODE
    EXT5                 varchar(128)                   null,
    constraint PK_TEMPLATE_NODE primary key clustered (TEMPLATE_ID, NODE_ID)
 );
+DROP TABLE IF EXISTS PROJECT;
+
+/*==============================================================*/
+/* Table: PROJECT                                               */
+/*==============================================================*/
+CREATE TABLE PROJECT 
+(
+   PROJECT_ID           INTEGER                        NOT NULL,
+   TEMPLATE_ID          VARCHAR(128)                   NOT NULL,
+   QA                   VARCHAR(64)                    NULL,
+   PROJECT_TYPE         VARCHAR(64)                    NULL,
+   PD                   VARCHAR(64)                    NULL,
+   WORK_TARGET          VARCHAR(64)                    NULL,
+   PRODUCT_LINE         VARCHAR(64)                    NULL,
+   TECHNICAL_MANAGER    VARCHAR(64)                    NULL,
+   PROJECT_MANAGER      VARCHAR(64)                    NULL,
+   WORK_LOAD            INTEGER                        NULL,
+   RELATED_SYSTEM       VARCHAR(64)                    NULL,
+   DOC_URL              VARCHAR(64)                    NULL,
+   AONE                 VARCHAR(64)                    NULL,
+   FRD                  VARCHAR(64)                    NULL,
+   PROJECT_NAME         VARCHAR(64)                    NULL,
+   CREATOR              VARCHAR(128)                   NULL,
+   `MODIFIER`           VARCHAR(128)                   NULL,
+   IS_DELETED           VARCHAR(1)                     NULL,
+   EXT1                 VARCHAR(128)                   NULL,
+   EXT2                 VARCHAR(128)                   NULL,
+   EXT3                 VARCHAR(128)                   NULL,
+   EXT4                 VARCHAR(128)                   NULL,
+   EXT5                 VARCHAR(128)                   NULL,
+   KICKOFF_TIME         DATE                           NULL,
+   PUBLICATION_DATE     DATE                           NULL,
+   CONSTRAINT PK_PROJECT PRIMARY KEY clustered (PROJECT_ID)
+);
+DROP TABLE IF EXISTS PROJECT_PHASE;
+
+/*==============================================================*/
+/* Table: PROJECT_PHASE                                         */
+/*==============================================================*/
+CREATE TABLE PROJECT_PHASE 
+(
+   PROJECT_ID           VARCHAR(128)                   NOT NULL,
+   TEMPLATE_ID          VARCHAR(128)                   NOT NULL,
+   PHASE_NAME           VARCHAR(128)                   NULL,
+   START_TIME           DATE                           NULL,
+   FINISH_TIME          DATE                           NULL,
+   ACTUAL_FINISHTIME    DATE                           NULL,
+   EXT1                 VARCHAR(128)                   NULL,
+   EXT2                 VARCHAR(128)                   NULL,
+   EXT3                 VARCHAR(128)                   NULL,
+   EXT4                 VARCHAR(128)                   NULL,
+   EXT5                 VARCHAR(128)                   NULL,
+   CONSTRAINT PK_PROJECT_PHASE PRIMARY KEY clustered (PROJECT_ID, TEMPLATE_ID)
+);
