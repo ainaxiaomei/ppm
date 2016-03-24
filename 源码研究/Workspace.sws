@@ -4,7 +4,9 @@
 
 <Workspace>
 	<Local Expanded="Yes">
-		<Model Expanded="Yes" ID="{8E1436B1-4681-42A2-B65D-6C39E3591DA4}" Name="springmvc" Type="{FF4B6538-9856-42CF-B9B9-304ED370CEAA}" URL="springmvc/springmvc.prj"/>
+		<Model Expanded="Yes" ID="{8E1436B1-4681-42A2-B65D-6C39E3591DA4}" Loaded="No" Name="springmvc" Type="{FF4B6538-9856-42CF-B9B9-304ED370CEAA}" URL="springmvc/springmvc.prj"/>
+		<Model Expanded="Yes" ID="{B645D168-6DAA-4A09-BD91-7C996BE8BAE6}" Loaded="No" Name="PhysicalDataModel_1" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" URL="../项目过程管理.pdm"/>
+		<Model Expanded="Yes" ID="{0EAB7E78-4EC8-4CFC-B2EB-8B5F4A75B21C}" Name="类图" Selected="Yes" Type="{18112060-1A4B-11D1-83D9-444553540000}" URL="springmvc/类图.oom"/>
 	</Local>
 	<BrowserModule Name="Repository"/>
 </Workspace>
