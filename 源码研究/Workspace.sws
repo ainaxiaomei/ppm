@@ -6,11 +6,13 @@
 	<Local Expanded="Yes">
 		<Model ID="{8E1436B1-4681-42A2-B65D-6C39E3591DA4}" Loaded="No" Name="springmvc" Type="{FF4B6538-9856-42CF-B9B9-304ED370CEAA}" URL="springmvc/springmvc.prj"/>
 		<Model Expanded="Yes" ID="{B645D168-6DAA-4A09-BD91-7C996BE8BAE6}" Loaded="No" Name="PhysicalDataModel_1" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" URL="../项目过程管理.pdm"/>
-		<Model ID="{0EAB7E78-4EC8-4CFC-B2EB-8B5F4A75B21C}" Name="类图" Type="{18112060-1A4B-11D1-83D9-444553540000}" URL="springmvc/类图.oom"/>
-		<Model Expanded="Yes" ID="{D343C449-F1E6-45CB-875F-ED8CDF1EE9A4}" Name="webx" Selected="Yes" Type="{FF4B6538-9856-42CF-B9B9-304ED370CEAA}" URL="webx/webx.prj"/>
-		<Model Expanded="Yes" ID="{D7E18DF5-A270-4332-838A-9756B7BE5CD7}" Name="ObjectOrientedModel_1" Type="{18112060-1A4B-11D1-83D9-444553540000}" URL="webx/webx.oom"/>
+		<Model ID="{0EAB7E78-4EC8-4CFC-B2EB-8B5F4A75B21C}" Loaded="No" Name="类图" Type="{18112060-1A4B-11D1-83D9-444553540000}" URL="springmvc/类图.oom"/>
+		<Model Expanded="Yes" ID="{D343C449-F1E6-45CB-875F-ED8CDF1EE9A4}" Loaded="No" Name="webx" Type="{FF4B6538-9856-42CF-B9B9-304ED370CEAA}" URL="webx/webx.prj"/>
+		<Model Expanded="Yes" ID="{D7E18DF5-A270-4332-838A-9756B7BE5CD7}" Loaded="No" Name="ObjectOrientedModel_1" Type="{18112060-1A4B-11D1-83D9-444553540000}" URL="webx/webx.oom"/>
 		<Model Expanded="Yes" ID="{6881454A-AA93-4C3D-8194-B15729899961}" Loaded="No" Name="类图" Type="{18112060-1A4B-11D1-83D9-444553540000}" URL="spring/applicationContext.oom"/>
-		<Model Expanded="Yes" ID="{62A4C11C-2336-4127-8C9A-9F7BE4267DF3}" Name="spring" Type="{FF4B6538-9856-42CF-B9B9-304ED370CEAA}" URL="spring/spring.prj"/>
+		<Model Expanded="Yes" ID="{62A4C11C-2336-4127-8C9A-9F7BE4267DF3}" Loaded="No" Name="spring" Type="{FF4B6538-9856-42CF-B9B9-304ED370CEAA}" URL="spring/spring.prj"/>
+		<Model Expanded="Yes" ID="{D7E18DF5-A270-4332-838A-9756B7BE5CD7}" Loaded="No" Name="webx" Type="{18112060-1A4B-11D1-83D9-444553540000}" URL="webx/webx.oom"/>
+		<Model Expanded="Yes" ID="{D7E18DF5-A270-4332-838A-9756B7BE5CD7}" Name="webx" Selected="Yes" Type="{18112060-1A4B-11D1-83D9-444553540000}" URL="webx/webx.oom"/>
 	</Local>
 	<BrowserModule Name="Repository"/>
 </Workspace>
