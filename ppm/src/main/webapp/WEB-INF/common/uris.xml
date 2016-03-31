@@ -28,8 +28,8 @@
         </uris:turbine-uri>
 
         <uris:turbine-content-uri id="homeContent" exposed="true" extends="homeLink" />
-		<uris:servlet-content-uri id="storeImageContent" exposed="true" extends="petstoreServer">
-            <prefixPath>/home/images</prefixPath>
+		<uris:servlet-content-uri id="imageContent" exposed="true" extends="petstoreServer">
+            <prefixPath>/home</prefixPath>
         </uris:servlet-content-uri>
     </services:uris>
 

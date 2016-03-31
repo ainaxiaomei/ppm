@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.alibaba.ppm.process.mapper.ProjectBeanMapperExt" >
-  <resultMap id="BaseResultMap" type="com.alibaba.ppm.process.entity.ProjectBean" >
+<mapper namespace="com.alibaba.ppm.home.module.dal.mapper.ProjectBeanMapperExt" >
+  <resultMap id="BaseResultMap" type="com.alibaba.ppm.home.module.dal.daoobject.ProjectBean" >
     <id column="PROJECT_ID" property="projectId" jdbcType="INTEGER" />
     <result column="TEMPLATE_ID" property="templateId" jdbcType="VARCHAR" />
     <result column="QA" property="qa" jdbcType="VARCHAR" />
@@ -43,7 +43,7 @@
     delete from PROJECT
     where PROJECT_ID = #{projectId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.alibaba.ppm.process.entity.ProjectBean" >
+  <insert id="insert" parameterType="com.alibaba.ppm.home.module.dal.daoobject.ProjectBean" >
     insert into PROJECT (PROJECT_ID, TEMPLATE_ID, QA, 
       PROJECT_TYPE, PD, WORK_TARGET, 
       PRODUCT_LINE, TECHNICAL_MANAGER, PROJECT_MANAGER, 
@@ -63,7 +63,7 @@
       #{ext5,jdbcType=VARCHAR}, #{kickoffTime,jdbcType=DATE}, #{publicationDate,jdbcType=DATE}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.alibaba.ppm.process.entity.ProjectBean" >
+  <insert id="insertSelective" parameterType="com.alibaba.ppm.home.module.dal.daoobject.ProjectBean" >
     insert into PROJECT
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="projectId != null" >
@@ -220,7 +220,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.alibaba.ppm.process.entity.ProjectBean" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.alibaba.ppm.home.module.dal.daoobject.ProjectBean" >
     update PROJECT
     <set >
       <if test="templateId != null" >
@@ -298,7 +298,7 @@
     </set>
     where PROJECT_ID = #{projectId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.alibaba.ppm.process.entity.ProjectBean" >
+  <update id="updateByPrimaryKey" parameterType="com.alibaba.ppm.home.module.dal.daoobject.ProjectBean" >
     update PROJECT
     set TEMPLATE_ID = #{templateId,jdbcType=VARCHAR},
       QA = #{qa,jdbcType=VARCHAR},

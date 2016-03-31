@@ -14,4 +14,5 @@ public interface ProjectBeanMapper {
     int updateByPrimaryKeySelective(ProjectBean record);
 
     int updateByPrimaryKey(ProjectBean record);
+    
 }
