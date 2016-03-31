@@ -1,3 +1,0 @@
-#set($list=1)
-#foreach($a in $list)
-#end
