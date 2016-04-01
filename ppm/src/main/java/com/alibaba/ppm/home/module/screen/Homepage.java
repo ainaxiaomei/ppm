@@ -10,15 +10,16 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.alibaba.citrus.turbine.Context;
+import com.alibaba.ppm.home.module.dal.bo.ProjectBo;
 import com.alibaba.ppm.home.module.dal.daoobject.ProjectBean;
 import com.alibaba.ppm.home.module.dal.mapper.ProjectBeanMapper;
 import com.alibaba.ppm.home.module.dal.mapper.ProjectBeanMapperExt;
 
 public class Homepage {
 	@Autowired
-	private ProjectBeanMapperExt mapper;
+	private ProjectBo projectBo;
 	 public void execute(Context context) throws Exception {
-	     List<ProjectBean> projectList=mapper.selectAllProject();
+		 List<ProjectBean> projectList =projectBo.getAllProject();
 	     context.put("projectList", projectList);
 	    }
 }
