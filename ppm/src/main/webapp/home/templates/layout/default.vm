@@ -13,7 +13,7 @@
   <tr>
     <td height="258" valign="top"><table border="0" cellpadding="0" cellspacing="0" width="100%">
       <tr>
-        <td><a href="#"><img src="$homeContent.getURI("images/logo_petstore_big.png")" /></a></td>
+        <td><a href="#"><img src="$homeContent.getURI("images/logo.png")" /></a></td>
       </tr>
 		      <tr>
         <td valign="top">&nbsp;</td>
