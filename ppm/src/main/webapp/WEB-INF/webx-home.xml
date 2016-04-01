@@ -36,4 +36,6 @@
 
     <!-- 页面授权。-->
     <services:page-authorization default="allow" />
+    <!-- 导入spring配置 -->
+    <beans:import resource="datasource.xml" />
 </beans:beans>

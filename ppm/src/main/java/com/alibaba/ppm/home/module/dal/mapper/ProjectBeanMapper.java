@@ -1,5 +1,7 @@
 package com.alibaba.ppm.home.module.dal.mapper;
 
+import javax.annotation.Resource;
+
 import com.alibaba.ppm.home.module.dal.daoobject.ProjectBean;
 
 public interface ProjectBeanMapper {
