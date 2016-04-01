@@ -36,5 +36,4 @@
 
     <!-- 页面授权。-->
     <services:page-authorization default="allow" />
-
 </beans:beans>
