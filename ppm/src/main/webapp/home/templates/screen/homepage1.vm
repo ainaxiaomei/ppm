@@ -1,0 +1,17 @@
+$page.addStyleSheet("$homeContent.getURI('css/petstore-store.css')")
+    <table width="100%"  border="solid" cellspacing="0" cellpadding="10">
+      <thead >
+		 <td>项目名称</td>
+		 <td>技术经理</td>
+		 <td>是否完成</td>
+		 <td></td>
+      </thead>
+	  #foreach ($project in $projectList)
+	  <tr>
+        <td>$!project.projectName</td>
+		<td>$!project.technicalManager</td>
+		<td>$!project.aone</td>
+		<td><a href="#">详细信息</a></td>
+      </tr>
+	  #end
+    </table>
